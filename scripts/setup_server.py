@@ -11,6 +11,7 @@ HOST = os.environ.get("DEPLOY_HOST", "213.109.202.145")
 USER = os.environ.get("DEPLOY_USER", "root")
 PASSWORD = os.environ.get("DEPLOY_PASSWORD", "")
 WEB_ROOT = "/var/www/bs-garage"
+APP_PATH = "/barber"
 DOMAIN = "bs-garage.ru"
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -27,11 +28,11 @@ NGINX_CONF = f"""server {{
     root {WEB_ROOT};
     index index.html;
 
-    location / {{
-        try_files $uri $uri/ /index.html;
+    location {APP_PATH}/ {{
+        try_files $uri $uri/ {APP_PATH}/index.html;
     }}
 
-    location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|webp|txt)$ {{
+    location ~* ^{APP_PATH}/.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|webp|txt)$ {{
         expires 30d;
         add_header Cache-Control "public, immutable";
     }}
@@ -153,16 +154,18 @@ def main():
             run(client, f"echo '{escaped}' >> {auth_keys_path}")
             run(client, f"chmod 600 {auth_keys_path}")
 
-        run(client, f"rm -rf {WEB_ROOT}/*")
+        app_root = f"{WEB_ROOT}{APP_PATH}"
+        run(client, f"mkdir -p {app_root}")
+        run(client, f"rm -rf {app_root}/*")
         sftp = client.open_sftp()
-        upload_dir(sftp, DIST, WEB_ROOT)
+        upload_dir(sftp, DIST, app_root)
         sftp.close()
 
-        run(client, f"chown -R www-data:www-data {WEB_ROOT}")
+        run(client, f"chown -R www-data:www-data {app_root}")
         run(client, "systemctl reload nginx")
 
         print("\nServer setup complete.")
-        print(f"Site: http://{HOST}/")
+        print(f"Site: http://{HOST}{APP_PATH}/")
     finally:
         client.close()
 

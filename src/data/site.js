@@ -10,7 +10,7 @@ export const SITE = {
   phones: ['+7 (499) 677-67-51', '+7 (966) 343-49-55', '+7 (499) 649-95-30'],
   phoneMain: '+74996776751',
   hours: 'Ежедневно, 09:00 — 21:00',
-  siteUrl: 'https://bs-garage.ru',
+  siteUrl: 'https://bs-garage.ru/barber',
   bookingUrl: 'https://bs-garage.ru',
   yandexOrgId: '86419475480',
   yandexMapsUrl: 'https://yandex.ru/maps/org/garazh/86419475480',

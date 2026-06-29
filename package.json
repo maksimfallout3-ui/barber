@@ -3,7 +3,7 @@
   "private": false,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://bs-garage.ru",
+  "homepage": "https://bs-garage.ru/barber",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

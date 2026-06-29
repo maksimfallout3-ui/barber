@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: dist/*
-          target: /var/www/bs-garage
+          target: /var/www/bs-garage/barber
           strip_components: 1
           overwrite: true
 
@@ -43,5 +43,5 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            chown -R www-data:www-data /var/www/bs-garage
+            chown -R www-data:www-data /var/www/bs-garage/barber
             systemctl reload nginx
