@@ -7,12 +7,8 @@ from pathlib import Path
 
 import paramiko
 
-HOST = os.environ.get("DEPLOY_HOST", "213.109.202.145")
-USER = os.environ.get("DEPLOY_USER", "root")
-PASSWORD = os.environ.get("DEPLOY_PASSWORD", "")
-WEB_ROOT = "/var/www/bs-garage"
-APP_PATH = "/barber"
-DOMAIN = "bs-garage.ru"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from nginx_config import APP_PATH, HOST, WEB_ROOT, nginx_site_conf
 
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
@@ -20,27 +16,9 @@ KEY_DIR = ROOT / ".deploy"
 PRIVATE_KEY = KEY_DIR / "deploy_key"
 PUBLIC_KEY = KEY_DIR / "deploy_key.pub"
 
-NGINX_CONF = f"""server {{
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name {DOMAIN} www.{DOMAIN} {HOST} _;
-
-    root {WEB_ROOT};
-    index index.html;
-
-    location {APP_PATH}/ {{
-        try_files $uri $uri/ {APP_PATH}/index.html;
-    }}
-
-    location ~* ^{APP_PATH}/.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|webp|txt)$ {{
-        expires 30d;
-        add_header Cache-Control "public, immutable";
-    }}
-
-    gzip on;
-    gzip_types text/plain text/css application/javascript application/json image/svg+xml;
-}}
-"""
+USER = os.environ.get("DEPLOY_USER", "root")
+PASSWORD = os.environ.get("DEPLOY_PASSWORD", "")
+HOST = os.environ.get("DEPLOY_HOST", HOST)
 
 
 def ensure_deploy_key():
@@ -137,11 +115,11 @@ def main():
 
         sftp = client.open_sftp()
         with sftp.file("/etc/nginx/sites-available/bs-garage", "w") as f:
-            f.write(NGINX_CONF)
+            f.write(nginx_site_conf())
         sftp.close()
 
         run(client, "ln -sf /etc/nginx/sites-available/bs-garage /etc/nginx/sites-enabled/bs-garage")
-        run(client, "rm -f /etc/nginx/sites-enabled/default")
+        run(client, "rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/parser")
         run(client, "nginx -t")
         run(client, "systemctl enable nginx")
         run(client, "systemctl restart nginx")
