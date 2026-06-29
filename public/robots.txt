@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bs-garage.ru/sitemap.xml

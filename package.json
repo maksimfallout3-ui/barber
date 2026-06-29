@@ -1,0 +1,22 @@
+{
+  "name": "bs-garage",
+  "private": false,
+  "version": "1.0.0",
+  "type": "module",
+  "homepage": "https://bs-garage.ru",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "preview:public": "vite preview --host 0.0.0.0 --port 4173",
+    "share": "npm run build && npm run preview:public"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.3"
+  }
+}

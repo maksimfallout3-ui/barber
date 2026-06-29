@@ -1,0 +1,56 @@
+export const SITE = {
+  name: 'Гараж',
+  fullName: 'Барбершоп «Гараж»',
+  tagline: 'Стильное пространство для мужчин в центре Москвы',
+  description:
+    'Мужская парикмахерская с атмосферой настоящего гаража: профессиональные барберы, кофе, game room с PS5 и скидка 20% на первое посещение.',
+  address: 'Ленинский просп., 83, корп. 2',
+  addressShort: 'Ленинский пр-кт, д. 83 к2',
+  city: 'Москва',
+  phones: ['+7 (499) 677-67-51', '+7 (966) 343-49-55', '+7 (499) 649-95-30'],
+  phoneMain: '+74996776751',
+  hours: 'Ежедневно, 09:00 — 21:00',
+  siteUrl: 'https://bs-garage.ru',
+  bookingUrl: 'https://bs-garage.ru',
+  yandexOrgId: '86419475480',
+  yandexMapsUrl: 'https://yandex.ru/maps/org/garazh/86419475480',
+  rating: 5.0,
+  reviewsCount: 383,
+  social: {
+    vk: 'https://vk.com/garagebarbershop',
+    telegram: 'https://t.me/Garagebarbershop25',
+    whatsapp: 'https://wa.me/+79663434955',
+  },
+  metro: [
+    { name: 'Вавиловская', color: '#177245' },
+    { name: 'Новаторская', color: '#177245' },
+    { name: 'Университет', color: '#f23d30' },
+  ],
+  features: [
+    'Льготная стрижка',
+    'Оплата картой',
+    'Онлайн-запись',
+    'Парковка',
+    'Wi-Fi',
+    'Game room & PS5',
+    'Кофе для гостей',
+    'Подарочные сертификаты',
+  ],
+  promos: [
+    { title: 'Первое посещение', text: 'Скидка 20% на первую стрижку' },
+    { title: 'Приведи друга', text: 'Скидка 20% вам и другу' },
+    { title: 'Постоянным клиентам', text: 'Специальные условия и бонусы' },
+  ],
+  logo: 'https://avatars.mds.yandex.net/get-altay/16569030/2a00000198895dd56fcb0027622a347e5ea1/XS',
+  heroImage: 'https://avatars.mds.yandex.net/get-altay/15544497/2a0000019a882b34b6ff693d3b0fa99629d4/L',
+  interiorImage: 'https://avatars.mds.yandex.net/get-altay/15381861/2a0000019826ec2f03fdab149fc2208bece8/L',
+};
+
+export const NAV_ITEMS = [
+  { id: 'hero', label: 'Главная' },
+  { id: 'about', label: 'О нас' },
+  { id: 'services', label: 'Услуги' },
+  { id: 'masters', label: 'Мастера' },
+  { id: 'reviews', label: 'Отзывы' },
+  { id: 'contacts', label: 'Контакты' },
+];
