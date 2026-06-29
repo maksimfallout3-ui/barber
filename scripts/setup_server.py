@@ -7,9 +7,9 @@ from pathlib import Path
 
 import paramiko
 
-HOST = "213.109.202.145"
-USER = "root"
-PASSWORD = "Bl3kX0mA1vQIbVys"
+HOST = os.environ.get("DEPLOY_HOST", "213.109.202.145")
+USER = os.environ.get("DEPLOY_USER", "root")
+PASSWORD = os.environ.get("DEPLOY_PASSWORD", "")
 WEB_ROOT = "/var/www/bs-garage"
 DOMAIN = "bs-garage.ru"
 
@@ -108,6 +108,10 @@ def run_sftp_mkdir(sftp, path):
 
 
 def main():
+    if not PASSWORD:
+        print("Set DEPLOY_PASSWORD env var for initial server setup.", file=sys.stderr)
+        sys.exit(1)
+
     if not DIST.is_dir():
         print("Run npm run build first.", file=sys.stderr)
         sys.exit(1)
